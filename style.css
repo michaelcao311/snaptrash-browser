@@ -1,10 +1,22 @@
 h1 {
 	font-family: 'Bungee Shade', cursive;
+	font-size: 80px;
+}
+body {
+	background-color: #4bb0af;
 }
 #title {
 	width: 100%;
 	text-align: center;
 }
 #canvas {
+	display: none;
+}
+#eyyyy {
+	text-align:center;
+	display: none;
+}
+#poutput {
+	text-align: center;
 	display: none;
 }

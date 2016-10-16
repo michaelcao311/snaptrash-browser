@@ -69,6 +69,8 @@
 			context.drawImage(video, 0, 0, width, height);
 			// HERES THE BASE 64 DATA
 			var data = canvas.toDataURL('image/png');
+			var string_data = (data.toString('base64'));
+			console.log(string_data);
 			photo.setAttribute('src', data);
 			$.post('/pic',
 				{

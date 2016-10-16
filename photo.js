@@ -161,7 +161,7 @@ var custom_dict = {
 			var name = conceptsCustom[i].name;
 
 			var score = conceptsCustom[i].score;
-			if((name in custom_dict) && score > 0.37) {
+			if((name in custom_dict) && score > 0.32) {
 				console.log(name);
 				console.log("we fade it");
 				console.log(custom_dict[name]);

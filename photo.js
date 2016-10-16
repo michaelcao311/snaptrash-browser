@@ -8,12 +8,12 @@
 	var video = null;
 	var canvas = null;
 	var photo = null;
-	var eyy = null;
+	var snapButton = null;
 	function startup() {
 		video = document.getElementById('video');
 		canvas = document.getElementById('canvas');
 		photo = document.getElementById('photo');
-		eyy = document.getElementById('eyy');
+		snapButton = document.getElementById('snap-button');
 		navigator.getMedia = (navigator.getUserMedia ||	
 														navigator.webkitGetUserMedia ||
 														navigator.mozGetUserMedia ||
@@ -39,7 +39,7 @@
 				console.log("EYYYYY! " + err);
 			});
 		video.addEventListener('canplay', function(exp) {
-			$('#eyyyy').fadeIn();
+			$('#video-container').fadeIn();
 			if(!streaming) {
 				height = video.videoHeight / (video.videoWidth/width);
 				if (isNaN(height)) {
@@ -53,7 +53,7 @@
 				streaming = true;
 			}
 		}, false);
-		eyy.addEventListener('click', function(exp) {
+		snapButton.addEventListener('click', function(exp) {
 			takepic();
 			exp.preventDefault();
 		}, false);
@@ -61,8 +61,8 @@
 
 	function takepic() {
 		var context = canvas.getContext('2d');
-		$("#poutput").fadeOut();
-    $("#poutput").fadeIn();
+		$("#pic-output").fadeOut();
+    $("#pic-output").fadeIn();
 	  if (width && height) {
 			canvas.width = width;
 			canvas.height = height;

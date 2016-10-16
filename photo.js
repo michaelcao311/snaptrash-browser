@@ -15,6 +15,7 @@ function parse_data() {
 
 var item_dict = {
 	"food paper": "compostable",
+	"drink": "recyclable",
   "yard": "compostable",
 	"food": "compostable",
 	"paper": "recyclable",
@@ -130,12 +131,12 @@ var item_dict = {
 		var trashType = "trash";
 		for(i = 0; i < concepts.length; i++) {
 			var name = concepts[i].name;
-			var value = concepts[i].value;
-			if((name in item_dict) && value > 0.9) {
-				trashType = item_dict[name];
-				if(name === 'food') {
-					return trashType;
-				}
+			var score = concepts[i].score;
+			if((name in item_dict) && score > 0.9) {
+				console.log(name);
+				console.log("WE MADE it");
+				console.log(item_dict[name]);
+				return item_dict[name];
 			}
 		}
 		return trashType;

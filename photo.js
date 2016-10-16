@@ -70,13 +70,23 @@
 			// HERES THE BASE 64 DATA
 			var data = canvas.toDataURL('image/png');
 			photo.setAttribute('src', data);
-			$.post('/pic',
-				{
-					image_data: data,
-				},
-				function(data, status) {
-					alert("data: " + data + '\nStatus: ' + status);
-				});
+			var string_data = data.toString('base64');
+			// app.models.predict(Clarifai.GENERAL_MODEL, {base64: data}).then(
+			//   function(response) {
+			//     console.log(response);
+			//   },
+			//   function(err) {
+			//     console.err(err);
+			//   }
+			// );	
+			app.models.predict(Clarifai.GENERAL_MODEL, "https://samples.clarifai.com/metro-north.jpg").then(
+			  function(response) {
+			    console.log(response);
+			  },
+			  function(err) {
+			    // there was an error
+			  }
+			);
 		}	
 	};
 	window.addEventListener('load', startup, false);

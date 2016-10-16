@@ -61,8 +61,8 @@
 
 	function takepic() {
 		var context = canvas.getContext('2d');
-		$("#pic-output").fadeOut();
-    $("#pic-output").fadeIn();
+		$("#pic-container").fadeOut();
+    $("#pic-container").fadeIn();
 	  if (width && height) {
 			canvas.width = width;
 			canvas.height = height;

@@ -1,31 +1,52 @@
 <!DOCTYPE html>
 <html>
-    <head>
-			<title> SnapTrash </title>
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-      <link href="https://fonts.googleapis.com/css?family=Bungee+Shade" rel="stylesheet">
-			<link rel="stylesheet" href="style.css">
-      <script src="photo.js"> </script>
-      <script src="bundle.js"></script>
-    </head>
+  <head>
+    <title>SnapTrash</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="images/icon.png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="photo.js"> </script>
+    <script src="bundle.js"></script>
+  </head>
 
-    <body>
-				<div class="camera">
-          <div id="video-container">
-            <video id="video"></video>	
-              <br>
-            <button id="snap-button" class="btn btn-default"> EYY </button>
-          </div>
-				</div>
-				
-				<div id="pic-output" class="output">
-					<img id="photo">
-				</div>
-			</div>
+  <body>
+ 		<nav>
+      <ul>
+        <li>
+          <a href="#demo">Demo</a>
+        </li>
+        <li>
+          <a href="#tech">About</a>
+        </li>
+        <li>
+          <a href="#team">Team</a>
+        </li>
+      </ul>
+    </nav> 
 
-      <canvas id="canvas">
-      </canvas>
-    </body>
+    <header>
+      <h1>snaptrash</h1>
+      <img src="images/icon.svg">
+      <p>Trash with peace of mind.</p>
+			<img id="downarrow" src="images/downarrow.svg">
+    </header>
 
 
+    <section id="demo">
+      <div id="video-container">
+        <video id="video"></video>	
+          <br>
+        <button id="snap-button" class="btn btn-default">snap</button>
+      </div>
+        
+      <div id="pic-container" class="output">
+        <img id="photo">
+      </div>
+    </section>
+
+    <canvas id="canvas">
+    </canvas>
+  </body>
 </html>

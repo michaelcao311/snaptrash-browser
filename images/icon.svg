@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="188px" height="161px" viewBox="0 0 188 161" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40 (33762) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="144" y="40" width="17" height="10"></rect>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="17" height="10" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <rect id="path-3" x="0" y="23" width="188" height="138" rx="37"></rect>
+        <mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="188" height="138" fill="white">
+            <use xlink:href="#path-3"></use>
+        </mask>
+        <path d="M53.1139059,25 C58.0986565,10.4555723 71.8938579,0 88.1189275,0 L100.880454,0 C117.113862,0 130.905168,10.4531481 135.887158,25 L53.1139059,25 Z" id="path-5"></path>
+        <mask id="mask-6" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="82.7732524" height="25" fill="white">
+            <use xlink:href="#path-5"></use>
+        </mask>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group">
+            <use id="Rectangle-5" stroke="#FFFFFF" mask="url(#mask-2)" stroke-width="2" fill="#FFFFFF" xlink:href="#path-1"></use>
+            <use id="Rectangle" stroke="#FFFFFF" mask="url(#mask-4)" stroke-width="4" xlink:href="#path-3"></use>
+            <ellipse id="Oval" stroke="#FFFFFF" stroke-width="2" cx="94.4435792" cy="90" rx="45.4435792" ry="45"></ellipse>
+            <use id="Combined-Shape" stroke="#FFFFFF" mask="url(#mask-6)" stroke-width="4" xlink:href="#path-5"></use>
+            <rect id="Rectangle-6" fill="#5B391C" x="88" y="96" width="13.4112032" height="28.3888889" rx="6.70560162"></rect>
+            <polygon id="Triangle-Copy" fill="#5F971F" points="94.0970722 67 117.194144 100.796296 71 100.796296"></polygon>
+            <polygon id="Triangle-Copy-2" fill="#5F971F" points="94.0970722 51 117.194144 84.7962963 71 84.7962963"></polygon>
+        </g>
+    </g>
+</svg>

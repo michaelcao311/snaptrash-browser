@@ -39,6 +39,7 @@
 				console.log("EYYYYY! " + err);
 			});
 		video.addEventListener('canplay', function(exp) {
+			$('#eyyyy').fadeIn();
 			if(!streaming) {
 				height = video.videoHeight / (video.videoWidth/width);
 				if (isNaN(height)) {
@@ -60,6 +61,8 @@
 
 	function takepic() {
 		var context = canvas.getContext('2d');
+		$("#poutput").fadeOut();
+    $("#poutput").fadeIn();
 	  if (width && height) {
 			canvas.width = width;
 			canvas.height = height;
@@ -73,10 +76,8 @@
 				},
 				function(data, status) {
 					alert("data: " + data + '\nStatus: ' + status);
-
 				});
 		}	
-
 	};
 	window.addEventListener('load', startup, false);
 })();

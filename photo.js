@@ -1,4 +1,28 @@
+var items_file = '/items.csv';
+function parse_data() {
+	var items = [];
+	$.get(items_file, function(data) {
+        var lines = data.split('\n');
+				for (i = 0; i < lines.length; i++) {
+					var elements = lines[i].split(',');
+					var storage = [elements[0], elements[1], elements[2]];
+					items[i] = storage;
+				}
+				console.log(items);
+				return items;
+    });
+};
 
+var item_dict = {
+	"food paper": "compostable",
+  "yard": "compostable",
+	"food": "compostable",
+	"paper": "recyclable",
+	"metal": "recyclable",
+	"glass": "recyclable",
+	"plastic": "recyclable",
+
+};
 (function() {
 	var width = 320;
 	var height = 0;
@@ -82,12 +106,17 @@
 						var temp = {'name': some_data[i].name, 'score': some_data[i].value};
 						concepts[i] = temp;
 					}
-					console.log(concepts);
 					var make_html = '';
+					var type = get_category(concepts);
+					console.log("TYPE");
+					console.log(type);
+					$("#category").text(get_category(concepts));
 					for (i = 0; i < concepts.length; i++) {
 						make_html += '<li>' + concepts[i].name + ' ' + concepts[i].score + ' </li>'
 					}
 					$("#concepts").html(make_html);
+
+					parse_data();
 		   },
 			   function(err) {
 			     console.err(err);
@@ -97,11 +126,19 @@
 	return concepts;	
 	};
 
-	function get_category() {
-
-
-
-
+	function get_category(concepts) {
+		var trashType = "trash";
+		for(i = 0; i < concepts.length; i++) {
+			var name = concepts[i].name;
+			var value = concepts[i].value;
+			if((name in item_dict) && value > 0.9) {
+				trashType = item_dict[name];
+				if(name === 'food') {
+					return trashType;
+				}
+			}
+		}
+		return trashType;
 	};
 	window.addEventListener('load', startup, false);
 })();

@@ -64,6 +64,7 @@
 			canvas.width = width;
 			canvas.height = height;
 			context.drawImage(video, 0, 0, width, height);
+			// HERES THE BASE 64 DATA
 			var data = canvas.toDataURL('image/png');
 			photo.setAttribute('src', data);
 			console.log(data);

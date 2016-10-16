@@ -8,10 +8,10 @@ function parse_data() {
 					var storage = [elements[0], elements[1], elements[2]];
 					items[i] = storage;
 				}
-				console.log(items);
 				return items;
     });
 };
+var type;
 
 var item_dict = {
 	"food paper": "compostable",
@@ -24,7 +24,14 @@ var item_dict = {
 	"plastic": "recyclable",
 
 };
-(function() {
+
+var custom_dict = {
+	"can": "recyclabowl",
+	"packaging": "trass",
+	"compost": "compostible"
+};
+
+(function (){
 	var width = 750;
 	var height = 550;
 
@@ -85,8 +92,10 @@ var item_dict = {
 		}, false);
 	}
 
+		var conceptsCustom = [];
+		var conceptsGeneral = [];
 	function takepic() {
-		var concepts = [];
+		var finished = _.after(2, set_category);
 		var context = canvas.getContext('2d');
 		$("#pic-container").fadeOut();
     $("#pic-container").fadeIn();
@@ -99,39 +108,71 @@ var item_dict = {
 			photo.setAttribute('src', data);
 			var string_data = data.toString('base64');
 			string_data = string_data.substring(22);
-			app.models.predict(Clarifai.GENERAL_MODEL, {base64: string_data}).then(
+			app.models.predict('ab7e8fef3c3343a88ad5841b8a2975ec', {base64: string_data}).then(
 			function(response) {
-					console.log(response);
 					var some_data = response.data.outputs[0].data.concepts;
 					for (i = 0; i < some_data.length; i++) {
 						var temp = {'name': some_data[i].name, 'score': some_data[i].value};
-						concepts[i] = temp;
+						conceptsCustom[i] = temp;
 					}
 					var make_html = '';
-					var type = get_category(concepts);
-					console.log("TYPE");
-					console.log(type);
-					$("#category").text(get_category(concepts));
-					for (i = 0; i < concepts.length; i++) {
-						make_html += '<li>' + concepts[i].name + ' ' + concepts[i].score + ' </li>'
+					console.log("CUSTOM");
+					console.log(conceptsCustom);
+					for (i = 0; i < conceptsCustom.length; i++) {
+						make_html += '<li>' + conceptsCustom[i].name + ' ' + conceptsCustom[i].score + ' </li>'
 					}
-					$("#concepts").html(make_html);
-
-					parse_data();
+					$("#concepts-custom").html(make_html);
+					finished();
 		   },
 			   function(err) {
 			     console.err(err);
 			   }
 			 );	
+			app.models.predict(Clarifai.GENERAL_MODEL, {base64: string_data}).then(
+				function(response) {
+					var some_data = response.data.outputs[0].data.concepts;
+					for (i = 0; i < some_data.length; i++) {
+						var temp = {'name': some_data[i].name, 'score': some_data[i].value};
+						conceptsGeneral[i] = temp;
+					}
+					var make_html = '';
+					console.log("GENERAL");
+					console.log(conceptsGeneral);
+					
+					for (i = 0; i < conceptsGeneral.length; i++) {
+						make_html += '<li>' + conceptsGeneral[i].name + ' ' + conceptsGeneral[i].score + ' </li>'
+					}
+					$("#concepts-general").html(make_html);
+					finished();
+			   },
+			   function(err) {
+			     console.err(err);
+			   }
+			 );	
 		}
-	return concepts;	
 	};
 
-	function get_category(concepts) {
+	function set_category() {
+		type = get_category(conceptsCustom, conceptsGeneral);
+		$("#category").text(type);
+	};
+	function get_category(conceptsCustom, conceptsGeneral) {
+		console.log('foop');
 		var trashType = "trash";
-		for(i = 0; i < concepts.length; i++) {
-			var name = concepts[i].name;
-			var score = concepts[i].score;
+		for(i = 0; i < conceptsCustom.length; i++) {
+			var name = conceptsCustom[i].name;
+
+			var score = conceptsCustom[i].score;
+			if((name in custom_dict) && score > 0.32) {
+				console.log(name);
+				console.log("we fade it");
+				console.log(custom_dict[name]);
+				return custom_dict[name];
+			}
+		}
+		for(i = 0; i < conceptsGeneral.length; i++) {
+			var name = conceptsGeneral[i].name;
+			var score = conceptsGeneral[i].score;
 			if((name in item_dict) && score > 0.9) {
 				console.log(name);
 				console.log("WE MADE it");
@@ -141,5 +182,6 @@ var item_dict = {
 		}
 		return trashType;
 	};
+	
 	window.addEventListener('load', startup, false);
 })();

@@ -67,7 +67,14 @@
 			// HERES THE BASE 64 DATA
 			var data = canvas.toDataURL('image/png');
 			photo.setAttribute('src', data);
-			console.log(data);
+			$.post('/pic',
+				{
+					image_data: data,
+				},
+				function(data, status) {
+					alert("data: " + data + '\nStatus: ' + status);
+
+				});
 		}	
 
 	};

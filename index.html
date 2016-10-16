@@ -1,15 +1,39 @@
 <!DOCTYPE html>
 <html>
     <head>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+			<title> SnapTrash </title>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link href="https://fonts.googleapis.com/css?family=Bungee+Shade" rel="stylesheet">
 			<link rel="stylesheet" href="style.css">
-      <script src="bundle.js"></script>
+		<script src="photo.js"> </script>
+    <script src="bundle.js"></script>
     </head>
     <body>
         <div id="title">
 					<h1> SNAPTRASH </h1>
+					<h2> If you snap it! We'll let you know if you can trash it! </h2>
 				</div>
+			<div class="row">
+				<div class="col-md-6">
+				<div class="camera">
+				<div id="eyyyy">
+					<video id="video"> </video>	
+					<br>
+					<button id="eyy" class="btn btn-default"> EYY </button>
+				</div>
+				</div>
+				</div>
+				
+				<canvas id="canvas">
+				</canvas>
+				<div class="col-md-6">
+				<div id="poutput" class="output">
+					<img id="photo">
+				</div>
+				</div>
+			</div>
     </body>
 
 

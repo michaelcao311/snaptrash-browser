@@ -39,7 +39,7 @@ var item_dict = {
 		video = document.getElementById('video');
 		canvas = document.getElementById('canvas');
 		photo = document.getElementById('photo');
-		snapButton = document.getElementById('snap-button');
+		snapButton = document.getElementById('video');
 		navigator.getMedia = (navigator.getUserMedia ||	
 														navigator.webkitGetUserMedia ||
 														navigator.mozGetUserMedia ||

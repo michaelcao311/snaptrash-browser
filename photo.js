@@ -22,7 +22,10 @@ var item_dict = {
 	"metal": "recyclable",
 	"glass": "recyclable",
 	"plastic": "recyclable",
-
+	"bottle": "recyclable",
+	"can": "recyclable",
+	"container": "recyclable",
+	"packaging": "trash",
 };
 
 var custom_dict = {

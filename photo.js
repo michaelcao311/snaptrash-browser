@@ -25,8 +25,8 @@ var item_dict = {
 
 };
 (function() {
-	var width = 320;
-	var height = 0;
+	var width = 750;
+	var height = 550;
 
 	console.log("hi");
 

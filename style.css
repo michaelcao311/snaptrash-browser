@@ -78,14 +78,21 @@ header > p {
 }
 
 #downarrow {
-  height: 40px;
-  width: 40px;
+  height: 5vh;
+  width: 5vh;
   position: relative;
-  top: 15vh;
+  top: 20vh;
+  transition: all 0.3s ease;
+}
+
+#downarrow:hover {
+  cursor: pointer;
+  height: 7vh;
+  width: 7vh;
 }
 
 #demo {
- background-color: #161616;
+	 background-color: #161616;
 }
 
 video {
@@ -100,6 +107,12 @@ video {
   padding-top: 10vh;
   padding-bottom: 10vh;
 }
+
+#pic-container {
+  text-align: center;
+  padding-bottom: 91.80px;
+}
+
 
 canvas {
 	display: none;

@@ -124,8 +124,8 @@ var custom_dict = {
 			     console.err(err);
 			   }
 			 );	
-	app.models.predict(Clarifai.GENERAL_MODEL, {base64: string_data}).then(
-			function(response) {
+			app.models.predict(Clarifai.GENERAL_MODEL, {base64: string_data}).then(
+				function(response) {
 					var some_data = response.data.outputs[0].data.concepts;
 					for (i = 0; i < some_data.length; i++) {
 						var temp = {'name': some_data[i].name, 'score': some_data[i].value};
@@ -135,25 +135,29 @@ var custom_dict = {
 					console.log("GENERAL");
 					console.log(conceptsGeneral);
 					
-					for (i = 0; i < concepts.length; i++) {
-						make_html += '<li>' + concepts[i].name + ' ' + concepts[i].score + ' </li>'
+					for (i = 0; i < conceptsGeneral.length; i++) {
+						make_html += '<li>' + conceptsGeneral[i].name + ' ' + conceptsGeneral[i].score + ' </li>'
 					}
 					$("#concepts-general").html(make_html);
-		   },
+			   },
 			   function(err) {
 			     console.err(err);
 			   }
 			 );	
 		}
+		console.log(conceptsCustom.length);
 	type = get_category(conceptsCustom, conceptsGeneral);
 	$("#category").text(type);
 	};
 
 
 	function get_category(conceptsCustom, conceptsGeneral) {
+		console.log('foop');
+		console.log(conceptsCustom.length);
 		var trashType = "trash";
 		for(i = 0; i < conceptsCustom.length; i++) {
 			var name = conceptsCustom[i].name;
+
 			var score = conceptsCustom[i].score;
 			if((name in custom_dict) && score > 0.37) {
 				console.log(name);

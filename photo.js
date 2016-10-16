@@ -1,3 +1,4 @@
+
 (function() {
 	var width = 320;
 	var height = 0;
@@ -54,12 +55,13 @@
 			}
 		}, false);
 		snapButton.addEventListener('click', function(exp) {
-			takepic();
+			var result = takepic();
 			exp.preventDefault();
 		}, false);
 	}
 
 	function takepic() {
+		var concepts = [];
 		var context = canvas.getContext('2d');
 		$("#pic-container").fadeOut();
     $("#pic-container").fadeIn();
@@ -70,14 +72,36 @@
 			// HERES THE BASE 64 DATA
 			var data = canvas.toDataURL('image/png');
 			photo.setAttribute('src', data);
-			$.post('/pic',
-				{
-					image_data: data,
-				},
-				function(data, status) {
-					alert("data: " + data + '\nStatus: ' + status);
-				});
-		}	
+			var string_data = data.toString('base64');
+			string_data = string_data.substring(22);
+			app.models.predict(Clarifai.GENERAL_MODEL, {base64: string_data}).then(
+			function(response) {
+					console.log(response);
+					var some_data = response.data.outputs[0].data.concepts;
+					for (i = 0; i < some_data.length; i++) {
+						var temp = {'name': some_data[i].name, 'score': some_data[i].value};
+						concepts[i] = temp;
+					}
+					console.log(concepts);
+					var make_html = '';
+					for (i = 0; i < concepts.length; i++) {
+						make_html += '<li>' + concepts[i].name + ' ' + concepts[i].score + ' </li>'
+					}
+					$("#concepts").html(make_html);
+		   },
+			   function(err) {
+			     console.err(err);
+			   }
+			 );	
+		}
+	return concepts;	
+	};
+
+	function get_category() {
+
+
+
+
 	};
 	window.addEventListener('load', startup, false);
 })();

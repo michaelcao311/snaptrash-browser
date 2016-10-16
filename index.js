@@ -1,5 +1,5 @@
-var clientId = 'VMsW98gyAwRP0sQRU8ZP42X07i-m_f0rbjTiyzVj';
-var clientSecret = 'WjgjycdmOoDW4C_IzL6PCB0Ukn6y0jtVov-xR6CY';
+var clientId = 'BZ8FbcALIw8rIup0pJVbflD3E8jpxPML344krhh4';
+var clientSecret = 'PqJozs2-fcxMC0Le0Xe6K677OOVozx9CDqWeyQqP';
 
 var app = new Clarifai.App(
   clientId,

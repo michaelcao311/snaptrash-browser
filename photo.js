@@ -8,7 +8,6 @@ function parse_data() {
 					var storage = [elements[0], elements[1], elements[2]];
 					items[i] = storage;
 				}
-				console.log(items);
 				return items;
     });
 };
@@ -99,9 +98,8 @@ var item_dict = {
 			photo.setAttribute('src', data);
 			var string_data = data.toString('base64');
 			string_data = string_data.substring(22);
-			app.models.predict(Clarifai.GENERAL_MODEL, {base64: string_data}).then(
+			app.models.predict('ab7e8fef3c3343a88ad5841b8a2975ec', {base64: string_data}).then(
 			function(response) {
-					console.log(response);
 					var some_data = response.data.outputs[0].data.concepts;
 					for (i = 0; i < some_data.length; i++) {
 						var temp = {'name': some_data[i].name, 'score': some_data[i].value};
@@ -109,15 +107,34 @@ var item_dict = {
 					}
 					var make_html = '';
 					var type = get_category(concepts);
-					console.log("TYPE");
-					console.log(type);
+					console.log("CUSTOM");
+					console.log(concepts);
 					$("#category").text(get_category(concepts));
 					for (i = 0; i < concepts.length; i++) {
 						make_html += '<li>' + concepts[i].name + ' ' + concepts[i].score + ' </li>'
 					}
 					$("#concepts").html(make_html);
-
-					parse_data();
+		   },
+			   function(err) {
+			     console.err(err);
+			   }
+			 );	
+	app.models.predict(Clarifai.GENERAL_MODEL, {base64: string_data}).then(
+			function(response) {
+					var some_data = response.data.outputs[0].data.concepts;
+					for (i = 0; i < some_data.length; i++) {
+						var temp = {'name': some_data[i].name, 'score': some_data[i].value};
+						concepts[i] = temp;
+					}
+					var make_html = '';
+					var type = get_category(concepts);
+					console.log("GENERAL");
+					console.log(concepts);
+					$("#category").text(get_category(concepts));
+					for (i = 0; i < concepts.length; i++) {
+						make_html += '<li>' + concepts[i].name + ' ' + concepts[i].score + ' </li>'
+					}
+					$("#concepts").html(make_html);
 		   },
 			   function(err) {
 			     console.err(err);

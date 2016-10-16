@@ -11,6 +11,7 @@ function parse_data() {
 				return items;
     });
 };
+var type;
 
 var item_dict = {
 	"food paper": "compostable",
@@ -23,7 +24,12 @@ var item_dict = {
 	"plastic": "recyclable",
 
 };
-(function() {
+var custom_dict = {
+	"can": "recyclabowl",
+	"packaging": "trass",
+	"compost": "compostible"
+};
+(function (){
 	var width = 320;
 	var height = 0;
 
@@ -85,8 +91,8 @@ var item_dict = {
 	}
 
 	function takepic() {
-		var concepts = [];
-		var concepts2 = [];
+		var conceptsCustom = [];
+		var conceptsGeneral = [];
 		var context = canvas.getContext('2d');
 		$("#pic-output").fadeOut();
     $("#pic-output").fadeIn();
@@ -104,15 +110,13 @@ var item_dict = {
 					var some_data = response.data.outputs[0].data.concepts;
 					for (i = 0; i < some_data.length; i++) {
 						var temp = {'name': some_data[i].name, 'score': some_data[i].value};
-						concepts[i] = temp;
+						conceptsCustom[i] = temp;
 					}
 					var make_html = '';
-					var type = get_category(concepts);
 					console.log("CUSTOM");
-					console.log(concepts);
-					$("#category").text(get_category(concepts));
-					for (i = 0; i < concepts.length; i++) {
-						make_html += '<li>' + concepts[i].name + ' ' + concepts[i].score + ' </li>'
+					console.log(conceptsCustom);
+					for (i = 0; i < conceptsCustom.length; i++) {
+						make_html += '<li>' + conceptsCustom[i].name + ' ' + conceptsCustom[i].score + ' </li>'
 					}
 					$("#concepts-custom").html(make_html);
 		   },
@@ -125,13 +129,12 @@ var item_dict = {
 					var some_data = response.data.outputs[0].data.concepts;
 					for (i = 0; i < some_data.length; i++) {
 						var temp = {'name': some_data[i].name, 'score': some_data[i].value};
-						concepts2[i] = temp;
+						conceptsGeneral[i] = temp;
 					}
 					var make_html = '';
-					var type = get_category(concepts2);
 					console.log("GENERAL");
-					console.log(concepts2);
-					$("#category").text(get_category(concepts2));
+					console.log(conceptsGeneral);
+					
 					for (i = 0; i < concepts.length; i++) {
 						make_html += '<li>' + concepts[i].name + ' ' + concepts[i].score + ' </li>'
 					}
@@ -142,14 +145,26 @@ var item_dict = {
 			   }
 			 );	
 		}
-	return concepts;	
+	type = get_category(conceptsCustom, conceptsGeneral);
+	$("#category").text(type);
 	};
 
-	function get_category(concepts) {
+
+	function get_category(conceptsCustom, conceptsGeneral) {
 		var trashType = "trash";
-		for(i = 0; i < concepts.length; i++) {
-			var name = concepts[i].name;
-			var score = concepts[i].score;
+		for(i = 0; i < conceptsCustom.length; i++) {
+			var name = conceptsCustom[i].name;
+			var score = conceptsCustom[i].score;
+			if((name in custom_dict) && score > 0.37) {
+				console.log(name);
+				console.log("we fade it");
+				console.log(custom_dict[name]);
+				return custom_dict[name];
+			}
+		}
+		for(i = 0; i < conceptsGeneral.length; i++) {
+			var name = conceptsGeneral[i].name;
+			var score = conceptsGeneral[i].score;
 			if((name in item_dict) && score > 0.9) {
 				console.log(name);
 				console.log("WE MADE it");
@@ -159,5 +174,6 @@ var item_dict = {
 		}
 		return trashType;
 	};
+	
 	window.addEventListener('load', startup, false);
 })();

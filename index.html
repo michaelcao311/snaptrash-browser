@@ -1,14 +1,34 @@
 <!DOCTYPE html>
 <html>
     <head>
+			<title> SnapTrash </title>
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link href="https://fonts.googleapis.com/css?family=Bungee+Shade" rel="stylesheet">
 			<link rel="stylesheet" href="style.css">
+		<script src="photo.js"> </script>
     </head>
     <body>
         <div id="title">
 					<h1> SNAPTRASH </h1>
 				</div>
+			<div class="row">
+				<div class="col-md-6">
+				<div class="camera">
+					<video id="video"> </video>	
+					<button id="eyy" class="btn btn-default"> EYY </button>
+				</div>
+				</div>
+				
+				<canvas id="canvas">
+				</canvas>
+				<div class="col-md-6">
+				<div class="output">
+					<img id="photo">
+				</div>
+				</div>
+			</div>
     </body>
 
 

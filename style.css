@@ -113,7 +113,6 @@ video {
   margin-right: auto;
 
   padding-top: 10vh;
-  padding-bottom: 10vh;
 }
 
 #pic-container {
@@ -121,7 +120,12 @@ video {
   padding-bottom: 91.80px;
 }
 
+#result-word {
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 60px;
+}
 
-canvas {
+#results, canvas {
 	display: none;
 }

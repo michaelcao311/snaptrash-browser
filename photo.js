@@ -26,9 +26,9 @@ var item_dict = {
 };
 
 var custom_dict = {
-	"can": "recyclabowl",
-	"packaging": "trass",
-	"compost": "compostible"
+	"can": "recyclable",
+	"packaging": "trash",
+	"compost": "compostable"
 };
 
 (function (){
@@ -155,6 +155,8 @@ var custom_dict = {
 	function set_category() {
 		type = get_category(conceptsCustom, conceptsGeneral);
 		$("#category").text(type);
+    debugger;
+    displayResult();
 	};
 	function get_category(conceptsCustom, conceptsGeneral) {
 		console.log('foop');
@@ -182,6 +184,27 @@ var custom_dict = {
 		}
 		return trashType;
 	};
+
+  
+  /* Change color scheme according to result */
+  function displayResult() {
+    var category = document.getElementById('category').textContent;
+    var section = document.getElementById('demo'); 
+    var resultWord = document.getElementById('result-word');
+
+  
+    if (category == 'recyclable') {
+      section.style.backgroundColor = '#7aadff';
+    } else if (category == 'compostable') {
+      section.style.backgroundColor = '#91eaaf';
+    } else {
+      section.style.backgroundColor = 'salmon';
+    }
+
+    resultWord.textContent = category;
+
+
+  }
 	
 	window.addEventListener('load', startup, false);
 })();

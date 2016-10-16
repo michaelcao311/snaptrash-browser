@@ -30,7 +30,8 @@ var item_dict = {
 var custom_dict = {
 	"can": "recyclable",
 	"packaging": "trash",
-	"compost": "compostable"
+	"compost": "compostable",
+	"bottle": "recyclable",
 };
 
 (function (){

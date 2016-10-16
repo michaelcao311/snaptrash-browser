@@ -86,6 +86,7 @@ var item_dict = {
 
 	function takepic() {
 		var concepts = [];
+		var concepts2 = [];
 		var context = canvas.getContext('2d');
 		$("#pic-output").fadeOut();
     $("#pic-output").fadeIn();
@@ -113,7 +114,7 @@ var item_dict = {
 					for (i = 0; i < concepts.length; i++) {
 						make_html += '<li>' + concepts[i].name + ' ' + concepts[i].score + ' </li>'
 					}
-					$("#concepts").html(make_html);
+					$("#concepts-custom").html(make_html);
 		   },
 			   function(err) {
 			     console.err(err);
@@ -124,17 +125,17 @@ var item_dict = {
 					var some_data = response.data.outputs[0].data.concepts;
 					for (i = 0; i < some_data.length; i++) {
 						var temp = {'name': some_data[i].name, 'score': some_data[i].value};
-						concepts[i] = temp;
+						concepts2[i] = temp;
 					}
 					var make_html = '';
-					var type = get_category(concepts);
+					var type = get_category(concepts2);
 					console.log("GENERAL");
-					console.log(concepts);
-					$("#category").text(get_category(concepts));
+					console.log(concepts2);
+					$("#category").text(get_category(concepts2));
 					for (i = 0; i < concepts.length; i++) {
 						make_html += '<li>' + concepts[i].name + ' ' + concepts[i].score + ' </li>'
 					}
-					$("#concepts").html(make_html);
+					$("#concepts-general").html(make_html);
 		   },
 			   function(err) {
 			     console.err(err);

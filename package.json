@@ -20,6 +20,15 @@
   },
   "homepage": "https://github.com/michaelcao311/snaptrash-browser#readme",
   "dependencies": {
-    "express": "^4.14.0"
+    "body-parser": "^1.15.2",
+    "clarifai": "^2.0.9",
+    "co-request": "^1.0.0",
+    "express": "^4.14.0",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "https": "^1.0.0",
+    "query-string": "^4.2.3",
+    "request": "^2.75.0",
+    "util": "^0.10.3"
   }
 }

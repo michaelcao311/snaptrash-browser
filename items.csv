@@ -1,0 +1,76 @@
+name,categories,tags
+yogurt tub,recyclable,plastic
+dairy tub,recyclable,plastic
+margarine tub,recyclable,plastic
+shampoo bottle,recyclable,plastic
+conditioner bottle,recyclable,plastic
+detergent bottle,recyclable,plastic
+fabric softener bottles,recyclable,plastic
+plastic plant pots,recyclable,plastic
+plastic cups,recyclable,plastic
+aluminum can,recyclable,metal
+tin can,recyclable,metal
+soda can,recyclable,metal
+metal food cans,recyclable,metal
+clean aluminum foil,recyclable,metal
+foil trays,recyclable,metal
+metal,recyclable,metal
+cardboard,recyclable,paper
+newspaper,recyclable,paper
+mail,recyclable,paper
+envelope,recyclable,paper
+cereal box,recyclable,paper
+dry food box,recyclable,paper
+frozen food box,recyclable,paper
+paperback book,recyclable,paper
+magazines,recyclable,paper
+catalogs,recyclable,paper
+phone books,recyclable,paper
+non-foil wrapping paper,recyclable,paper
+juice boxes,recyclable,paper
+milk carton,recyclable,paper
+soy milk carton,recyclable,paper
+broth container,recyclable,paper
+ice cream carton,recyclable,paper
+paper cups,recyclable,paper
+coffee cups,recyclable,paper
+glass jars,recyclable,glass
+glass bottle,recyclable,glass
+food-soiled paper,compost,food paper
+pizza box,compost,food paper
+paper towels,compost,paper
+napkins,compost,paper
+shredded paper,compost,paper
+paper plates,compost,food paper
+paper grocery bags,compost,paper
+paper egg carton,compost,food paper
+paper berry carton,compost,food paper
+grass clippings,compost,yard
+leaves,compost,yard
+houseplants,compost,yard
+tree branches,compost,yard
+weeds,compost,yard
+twigs,compost,yard
+roots,compost,yard
+fruit,compost,food
+vegetable,compost,food
+scraps,compost,food
+leftovers,compost,food
+bread,compost,food
+pasta,compost,food
+grains,compost,food
+eggshells,compost,food
+nutshells,compost,food
+coffee filters,compost,food
+coffee grounds,compost,food
+teabags,compost,food
+tea leaves,compost,food
+meat,compost,food
+fish,compost,food
+poultry,compost,food
+bones,compost,food
+dairy products,compost,food
+cheese,compost,food
+
+
+

@@ -54,12 +54,13 @@
 			}
 		}, false);
 		snapButton.addEventListener('click', function(exp) {
-			takepic();
+			var result = takepic();
 			exp.preventDefault();
 		}, false);
 	}
 
 	function takepic() {
+		var concepts = [];
 		var context = canvas.getContext('2d');
 		$("#pic-output").fadeOut();
     $("#pic-output").fadeIn();
@@ -74,13 +75,19 @@
 			string_data = string_data.substring(22);
 			app.models.predict(Clarifai.GENERAL_MODEL, {base64: string_data}).then(
 			function(response) {
-			    console.log(response);
+					var some_data = response.data.outputs[0].data.concepts;
+					for (i = 0; i < some_data.length; i++) {
+						var temp = {'name': some_data[i].name, 'score': some_data[i].value};
+						concepts[i] = temp;
+					}
+					console.log(concepts);
 		   },
 			   function(err) {
 			     console.err(err);
 			   }
 			 );	
-		}	
+		}
+	return concepts;	
 	};
 	window.addEventListener('load', startup, false);
 })();

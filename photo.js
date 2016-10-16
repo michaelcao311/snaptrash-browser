@@ -1,3 +1,28 @@
+var items_file = '/items.csv';
+function parse_data() {
+	var items = [];
+	$.get(items_file, function(data) {
+        var lines = data.split('\n');
+				for (i = 0; i < lines.length; i++) {
+					var elements = lines[i].split(',');
+					var storage = [elements[0], elements[1], elements[2]];
+					items[i] = storage;
+				}
+				return items;
+    });
+};
+
+var item_dict = {
+	"food paper": "compostable",
+	"drink": "recyclable",
+  "yard": "compostable",
+	"food": "compostable",
+	"paper": "recyclable",
+	"metal": "recyclable",
+	"glass": "recyclable",
+	"plastic": "recyclable",
+
+};
 (function() {
 	var width = 320;
 	var height = 0;
@@ -54,12 +79,13 @@
 			}
 		}, false);
 		snapButton.addEventListener('click', function(exp) {
-			takepic();
+			var result = takepic();
 			exp.preventDefault();
 		}, false);
 	}
 
 	function takepic() {
+		var concepts = [];
 		var context = canvas.getContext('2d');
 		$("#pic-output").fadeOut();
     $("#pic-output").fadeIn();
@@ -71,23 +97,66 @@
 			var data = canvas.toDataURL('image/png');
 			photo.setAttribute('src', data);
 			var string_data = data.toString('base64');
-			// app.models.predict(Clarifai.GENERAL_MODEL, {base64: data}).then(
-			//   function(response) {
-			//     console.log(response);
-			//   },
-			//   function(err) {
-			//     console.err(err);
-			//   }
-			// );	
-			app.models.predict(Clarifai.GENERAL_MODEL, "https://samples.clarifai.com/metro-north.jpg").then(
-			  function(response) {
-			    console.log(response);
-			  },
-			  function(err) {
-			    // there was an error
-			  }
-			);
-		}	
+			string_data = string_data.substring(22);
+			app.models.predict('ab7e8fef3c3343a88ad5841b8a2975ec', {base64: string_data}).then(
+			function(response) {
+					var some_data = response.data.outputs[0].data.concepts;
+					for (i = 0; i < some_data.length; i++) {
+						var temp = {'name': some_data[i].name, 'score': some_data[i].value};
+						concepts[i] = temp;
+					}
+					var make_html = '';
+					var type = get_category(concepts);
+					console.log("CUSTOM");
+					console.log(concepts);
+					$("#category").text(get_category(concepts));
+					for (i = 0; i < concepts.length; i++) {
+						make_html += '<li>' + concepts[i].name + ' ' + concepts[i].score + ' </li>'
+					}
+					$("#concepts").html(make_html);
+		   },
+			   function(err) {
+			     console.err(err);
+			   }
+			 );	
+	app.models.predict(Clarifai.GENERAL_MODEL, {base64: string_data}).then(
+			function(response) {
+					var some_data = response.data.outputs[0].data.concepts;
+					for (i = 0; i < some_data.length; i++) {
+						var temp = {'name': some_data[i].name, 'score': some_data[i].value};
+						concepts[i] = temp;
+					}
+					var make_html = '';
+					var type = get_category(concepts);
+					console.log("GENERAL");
+					console.log(concepts);
+					$("#category").text(get_category(concepts));
+					for (i = 0; i < concepts.length; i++) {
+						make_html += '<li>' + concepts[i].name + ' ' + concepts[i].score + ' </li>'
+					}
+					$("#concepts").html(make_html);
+		   },
+			   function(err) {
+			     console.err(err);
+			   }
+			 );	
+		}
+	return concepts;	
+	};
+
+	function get_category(concepts) {
+		var trashType = "trash";
+		for(i = 0; i < concepts.length; i++) {
+			var name = concepts[i].name;
+			var score = concepts[i].score;
+			if((name in item_dict) && score > 0.9) {
+				console.log(name);
+				console.log("WE MADE it");
+				console.log(item_dict[name]);
+				return item_dict[name];
+			}
+		}
+		return trashType;
 	};
 	window.addEventListener('load', startup, false);
 })();

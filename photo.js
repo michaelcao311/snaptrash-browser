@@ -25,7 +25,6 @@ var item_dict = {
 	"bottle": "recyclable",
 	"can": "recyclable",
 	"container": "recyclable",
-	"packaging": "trash",
 };
 
 var custom_dict = {

@@ -1,0 +1,2 @@
+# snaptrash-browser
+trash

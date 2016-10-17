@@ -1,22 +1,131 @@
-h1 {
-	font-family: 'Bungee Shade', cursive;
-	font-size: 80px;
-}
 body {
-	background-color: #4bb0af;
+  font-family: "Lato", Helvetica, Arial, sans-serif;
+  margin: 0;
 }
-#title {
-	width: 100%;
-	text-align: center;
+
+/* Navigation Bar */
+nav {
+  background-color: rgba(39, 39, 39, 0.7); /* Translucent, dark gray */
+  position: fixed; /* Affix the nav bar */
+  width: 100%; /* Extend across the top */
 }
-#canvas {
-	display: none;
+
+nav > ul {
+  list-style-type: none; /* Remove bullet-point style */
+  text-align: center; /* Center nav links */
 }
-#eyyyy {
-	text-align:center;
-	display: none;
+
+nav li {
+  display: inline-block;
+  margin-left: 2em;
+  margin-right: 2em;
 }
-#poutput {
-	text-align: center;
+
+a {
+  color: #909090;
+	font-size: 17px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  color: #2cbd62;
+}
+
+header {
+  background-image: url('images/background.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+
+	display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+h1 {
+	color: white;
+	font-size: 4rem;
+  margin: 5px;
+
+  animation-name: fadeInLeft;
+  animation-duration: 1s;
+}
+
+header > img {
+  height: 80px;
+  width: 80px;
+
+  animation-name: fadeInLeft;
+  animation-duration: 1s;
+}
+
+header > p {
+  color: white;
+  font-family: "Times New Roman";
+  font-style: italic;
+  font-size: 1.2rem;
+  font-weight: 100;
+  margin-top: 40px;
+
+  animation-name: fadeInLeft;
+  animation-duration: 2s;
+}
+
+@keyframes fadeInLeft {
+	from {
+		 opacity: 0;
+		 transform: translateY(30px);
+	}
+	to {
+		 opacity: 1;
+		 transform: translateY(0);
+	}
+}
+
+#downarrow {
+  height: 5vh;
+  width: 5vh;
+  position: relative;
+  top: 20vh;
+  transition: all 0.3s ease;
+}
+
+#downarrow:hover {
+  cursor: pointer;
+  height: 7vh;
+  width: 7vh;
+}
+
+#demo {
+	 background-color: #161616;
+}
+
+video {
+  display: block;
+
+  height: 60vh;
+  width: 60vw;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  padding-top: 10vh;
+}
+
+#pic-container {
+  text-align: center;
+  padding-bottom: 91.80px;
+}
+
+#result-word {
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 60px;
+}
+
+#results, canvas {
 	display: none;
 }

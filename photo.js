@@ -1,6 +1,42 @@
-(function() {
-	var width = 320;
-	var height = 0;
+var items_file = '/items.csv';
+function parse_data() {
+	var items = [];
+	$.get(items_file, function(data) {
+        var lines = data.split('\n');
+				for (i = 0; i < lines.length; i++) {
+					var elements = lines[i].split(',');
+					var storage = [elements[0], elements[1], elements[2]];
+					items[i] = storage;
+				}
+				return items;
+    });
+};
+var type;
+
+var item_dict = {
+	"food paper": "compostable",
+	"drink": "recyclable",
+  "yard": "compostable",
+	"food": "compostable",
+	"paper": "recyclable",
+	"metal": "recyclable",
+	"glass": "recyclable",
+	"plastic": "recyclable",
+	"bottle": "recyclable",
+	"can": "recyclable",
+	"container": "recyclable",
+};
+
+var custom_dict = {
+	"can": "recyclable",
+	"packaging": "trash",
+	"compost": "compostable",
+	"bottle": "recyclable",
+};
+
+(function (){
+	var width = 750;
+	var height = 550;
 
 	console.log("hi");
 
@@ -8,12 +44,12 @@
 	var video = null;
 	var canvas = null;
 	var photo = null;
-	var eyy = null;
+	var snapButton = null;
 	function startup() {
 		video = document.getElementById('video');
 		canvas = document.getElementById('canvas');
 		photo = document.getElementById('photo');
-		eyy = document.getElementById('eyy');
+		snapButton = document.getElementById('video');
 		navigator.getMedia = (navigator.getUserMedia ||	
 														navigator.webkitGetUserMedia ||
 														navigator.mozGetUserMedia ||
@@ -39,7 +75,7 @@
 				console.log("EYYYYY! " + err);
 			});
 		video.addEventListener('canplay', function(exp) {
-			$('#eyyyy').fadeIn();
+			$('#video-container').fadeIn();
 			if(!streaming) {
 				height = video.videoHeight / (video.videoWidth/width);
 				if (isNaN(height)) {
@@ -53,16 +89,19 @@
 				streaming = true;
 			}
 		}, false);
-		eyy.addEventListener('click', function(exp) {
-			takepic();
+		snapButton.addEventListener('click', function(exp) {
+			var result = takepic();
 			exp.preventDefault();
 		}, false);
 	}
 
+		var conceptsCustom = [];
+		var conceptsGeneral = [];
 	function takepic() {
+		var finished = _.after(2, set_category);
 		var context = canvas.getContext('2d');
-		$("#poutput").fadeOut();
-    $("#poutput").fadeIn();
+		$("#pic-container").fadeOut();
+    $("#pic-container").fadeIn();
 	  if (width && height) {
 			canvas.width = width;
 			canvas.height = height;
@@ -70,14 +109,105 @@
 			// HERES THE BASE 64 DATA
 			var data = canvas.toDataURL('image/png');
 			photo.setAttribute('src', data);
-			$.post('/pic',
-				{
-					image_data: data,
-				},
-				function(data, status) {
-					alert("data: " + data + '\nStatus: ' + status);
-				});
-		}	
+			var string_data = data.toString('base64');
+			string_data = string_data.substring(22);
+			app.models.predict('ab7e8fef3c3343a88ad5841b8a2975ec', {base64: string_data}).then(
+			function(response) {
+					var some_data = response.data.outputs[0].data.concepts;
+					for (i = 0; i < some_data.length; i++) {
+						var temp = {'name': some_data[i].name, 'score': some_data[i].value};
+						conceptsCustom[i] = temp;
+					}
+					var make_html = '';
+					console.log("CUSTOM");
+					console.log(conceptsCustom);
+					for (i = 0; i < conceptsCustom.length; i++) {
+						make_html += '<li>' + conceptsCustom[i].name + ' ' + conceptsCustom[i].score + ' </li>'
+					}
+					$("#concepts-custom").html(make_html);
+					finished();
+		   },
+			   function(err) {
+			     console.err(err);
+			   }
+			 );	
+			app.models.predict(Clarifai.GENERAL_MODEL, {base64: string_data}).then(
+				function(response) {
+					var some_data = response.data.outputs[0].data.concepts;
+					for (i = 0; i < some_data.length; i++) {
+						var temp = {'name': some_data[i].name, 'score': some_data[i].value};
+						conceptsGeneral[i] = temp;
+					}
+					var make_html = '';
+					console.log("GENERAL");
+					console.log(conceptsGeneral);
+					
+					for (i = 0; i < conceptsGeneral.length; i++) {
+						make_html += '<li>' + conceptsGeneral[i].name + ' ' + conceptsGeneral[i].score + ' </li>'
+					}
+					$("#concepts-general").html(make_html);
+					finished();
+			   },
+			   function(err) {
+			     console.err(err);
+			   }
+			 );	
+		}
 	};
+
+	function set_category() {
+		type = get_category(conceptsCustom, conceptsGeneral);
+		$("#category").text(type);
+    debugger;
+    displayResult();
+	};
+	function get_category(conceptsCustom, conceptsGeneral) {
+		console.log('foop');
+		var trashType = "trash";
+		for(i = 0; i < conceptsCustom.length; i++) {
+			var name = conceptsCustom[i].name;
+
+			var score = conceptsCustom[i].score;
+			if((name in custom_dict) && score > 0.32) {
+				console.log(name);
+				console.log("we fade it");
+				console.log(custom_dict[name]);
+				return custom_dict[name];
+			}
+		}
+		for(i = 0; i < conceptsGeneral.length; i++) {
+			var name = conceptsGeneral[i].name;
+			var score = conceptsGeneral[i].score;
+			if((name in item_dict) && score > 0.9) {
+				console.log(name);
+				console.log("WE MADE it");
+				console.log(item_dict[name]);
+				return item_dict[name];
+			}
+		}
+		return trashType;
+	};
+
+  
+  /* Change color scheme according to result */
+  function displayResult() {
+    var category = document.getElementById('category').textContent;
+    var section = document.getElementById('demo'); 
+    var resultWord = document.getElementById('result-word');
+
+  
+    if (category == 'recyclable') {
+      section.style.backgroundColor = '#7aadff';
+    } else if (category == 'compostable') {
+      section.style.backgroundColor = '#91eaaf';
+    } else {
+      section.style.backgroundColor = 'salmon';
+    }
+
+    resultWord.textContent = category;
+
+
+  }
+	
 	window.addEventListener('load', startup, false);
 })();

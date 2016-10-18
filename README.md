@@ -1,2 +1,2 @@
 # snaptrash-browser
-trash
+<a href="http://snaptrash.win"> trash </a>

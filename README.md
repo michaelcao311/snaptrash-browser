@@ -1,6 +1,7 @@
 # snaptrash-browser
-<a href="http://snaptrash.win"> trash </a>
 
-Dubhacks 2016
+<b> Dubhacks 2016 </b>
 <br>
 Tells you if something is Recyclable, Compostable, or Trash
+<br>
+<a href="http://snaptrash.win"> try it out here </a>
